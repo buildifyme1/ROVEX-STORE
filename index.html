@@ -6,12 +6,21 @@
   <meta name="theme-color" content="#101114" />
   <meta name="description" content="ROVEX — ترنجات رجالي بتصميم Streetwear. تحرك بطريقتك." />
   <title>ROVEX | Own Your Move</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ar_EG" />
+  <meta property="og:site_name" content="ROVEX" />
+  <meta property="og:title" content="ROVEX | Own Your Move" />
+  <meta property="og:description" content="ترنجات رجالي بتصميم Streetwear. ستايل يومي، راحة من أول خطوة." />
+  <meta property="og:image" content="BLACK.png" /><!-- غيّره لرابط كامل بعد الرفع: https://دومينك/BLACK.png -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Crect width='44' height='44' fill='%23101114'/%3E%3Cpath d='M7 36V8h17c8 0 13 4 13 11 0 5-3 9-8 10l9 7H25l-8-7h-1v7H7Zm9-15h8c2 0 4-1 4-3s-2-3-4-3h-8v6Z' fill='white'/%3E%3Cpath d='M5 40h34' stroke='%23D7FF35' stroke-width='3'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#collection">تخطي إلى المنتجات</a>
   <div class="announcement">
     <span>شحن لكل المحافظات</span><span class="announcement-dot"></span>
     <span>اكتشف أول مجموعة من ROVEX</span>
@@ -29,8 +38,10 @@
 
     <nav class="main-nav" id="mainNav">
       <a class="active" href="#home">الرئيسية</a>
+      <a href="#categories">الأقسام</a>
       <a href="#collection">المجموعة</a>
       <a href="#about">عن ROVEX</a>
+      <a href="#faq">الأسئلة الشائعة</a>
       <a href="#footer">تواصل معنا</a>
     </nav>
 
@@ -70,6 +81,46 @@
       <div class="ticker-track"><span>MOVE DIFFERENT</span><b>✳</b><span>STAY COMFORTABLE</span><b>✳</b><span>OWN YOUR MOVE</span><b>✳</b><span>MOVE DIFFERENT</span><b>✳</b><span>STAY COMFORTABLE</span><b>✳</b></div>
     </section>
 
+    <section class="section categories-section" id="categories">
+      <div class="section-heading">
+        <div><p class="eyebrow dark-eyebrow"><span></span> SHOP BY CATEGORY</p><h2>تسوق حسب <em>القسم.</em></h2></div>
+        <p>كل اللي تحتاجه للحركة في مكان واحد.<br>أقسام جديدة جاية في الطريق.</p>
+      </div>
+      <div class="category-grid">
+        <a class="category-card is-live" href="#collection">
+          <img src="BLACK.png" alt="قسم الترنجات" loading="lazy">
+          <span class="category-badge">متاح الآن</span>
+          <div class="category-label"><small>01 / TRACKSUITS</small><h3>الترنجات</h3><span class="category-cta">تسوق الآن ←</span></div>
+        </a>
+        <div class="category-card is-soon" data-soon tabindex="0" role="button" aria-label="كومبريشن - قريبا">
+          <span class="category-ghost">COMPRESSION</span>
+          <span class="category-badge soon">قريبًا</span>
+          <div class="category-label"><small>02 / COMPRESSION</small><h3>كومبريشن</h3><span class="category-cta">قريبًا</span></div>
+        </div>
+        <div class="category-card is-soon" data-soon tabindex="0" role="button" aria-label="بناطيل - قريبا">
+          <span class="category-ghost">PANTS</span>
+          <span class="category-badge soon">قريبًا</span>
+          <div class="category-label"><small>03 / PANTS</small><h3>بناطيل</h3><span class="category-cta">قريبًا</span></div>
+        </div>
+        <div class="category-card is-soon" data-soon tabindex="0" role="button" aria-label="سويت شيرت - قريبا">
+          <span class="category-ghost">SWEATSHIRT</span>
+          <span class="category-badge soon">قريبًا</span>
+          <div class="category-label"><small>04 / SWEATSHIRTS</small><h3>سويت شيرت</h3><span class="category-cta">قريبًا</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="drop-countdown" id="dropCountdown" hidden>
+      <p class="eyebrow"><span></span> NEXT DROP</p>
+      <h2>الدروب الجاي <em>على وصول.</em></h2>
+      <div class="countdown" dir="ltr">
+        <div><b id="cdD">00</b><small>DAYS</small></div><i>:</i>
+        <div><b id="cdH">00</b><small>HRS</small></div><i>:</i>
+        <div><b id="cdM">00</b><small>MIN</small></div><i>:</i>
+        <div><b id="cdS">00</b><small>SEC</small></div>
+      </div>
+    </section>
+
     <section class="section collection-section" id="collection">
       <div class="section-heading">
         <div><p class="eyebrow dark-eyebrow"><span></span> THE FIRST DROP</p><h2>اختار <em>ستايلك.</em></h2></div>
@@ -77,7 +128,7 @@
       </div>
       <div class="filter-row">
         <div class="collection-label">LATEST COLLECTION <span>— 03 ITEMS</span></div>
-        <button class="sort-button" id="sortButton">ترتيب المنتجات <span>⌄</span></button>
+        <label class="sort-button">ترتيب المنتجات <select id="sortSelect" aria-label="ترتيب المنتجات"><option value="default">الافتراضي</option><option value="asc">الأقل سعرًا</option><option value="desc">الأعلى سعرًا</option></select></label>
       </div>
       <div class="product-grid" id="productGrid">
         <article class="product-card" data-id="rvx-01" data-name="ترنج ROVEX Core أسود" data-price="1499">
@@ -104,7 +155,7 @@
           <div class="product-swatches"><i class="swatch grey"></i><i class="swatch black"></i><span>متوفر بمقاسات متعددة</span></div>
         </article>
 
-        <article class="product-card" data-id="rvx-03" data-name="ترنج ROVEX Volt أسود" data-price="1699">
+        <!-- <article class="product-card" data-id="rvx-03" data-name="ترنج ROVEX Volt أسود" data-price="1699">
           <div class="product-image-wrap">
             <span class="product-tag">LIMITED</span>
             <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
@@ -113,9 +164,10 @@
             <button class="view-product" data-view="rvx-03">تفاصيل المنتج <span>↗</span></button>
           </div>
           <div class="product-info"><div><h3>ترنج ROVEX Volt — أسود</h3><p>جاكيت + بنطلون</p></div><strong>1,699 ج.م</strong></div>
-          <div class="product-swatches"><i class="swatch black"></i><i class="swatch lime"></i><span>متوفر بمقاسات متعددة</span></div>
+          <div class="product-swatches"><i class="swatch black"></i><i class="swatch lime"></i><span>متوفر بمقاسات متعددة</span></div> -->
         </article>
       </div>
+      <p class="no-results" id="noResults" hidden>مفيش منتج بالاسم ده.. جرّب كلمة تانية.</p>
       <div class="center-action"><a class="btn btn-outline" href="#collection">عرض كل المنتجات <span>↙</span></a></div>
     </section>
 
@@ -136,6 +188,22 @@
       <div class="benefit"><span class="benefit-icon">⌁</span><div><h3>شحن للمحافظات</h3><p>اطلب بسهولة واستلم عند باب بيتك.</p></div></div>
     </section>
 
+    <section class="section faq-section" id="faq">
+      <div class="section-heading">
+        <div><p class="eyebrow dark-eyebrow"><span></span> FAQ</p><h2>أسئلة <em>بتتكرر.</em></h2></div>
+        <p>لو سؤالك مش هنا، كلمنا على واتساب<br>ونرد عليك في أسرع وقت.</p>
+      </div>
+      <div class="faq-list">
+        <details><summary>إزاي أطلب؟</summary><p>اختار المنتج والمقاس واللون، ضيفه للسلة، واضغط "إتمام الطلب". هيتفتح واتساب برسالة الطلب جاهزة، تضغط "إرسال" وفريقنا يأكد معاك.</p></details>
+        <details><summary>هل في شحن لكل المحافظات؟</summary><p>أيوه، بنشحن لكل المحافظات. تكلفة الشحن بتتحدد حسب المحافظة وبنأكدها معاك قبل تجهيز الطلب.</p></details>
+        <details><summary>طرق الدفع المتاحة؟</summary><p>الدفع عند الاستلام متاح. الدفع الإلكتروني هيتضاف في مرحلة لاحقة.</p></details>
+        <details><summary>إزاي أختار المقاس المناسب؟</summary><p>افتح "دليل المقاسات" من صفحة تفاصيل المنتج وقارن طولك ووزنك. ولو بين مقاسين، اختار الأكبر للراحة، أو كلمنا ونساعدك.</p></details>
+        <details><summary>الترنج بيشمل إيه؟</summary><p>الترنج طقم كامل: جاكيت + بنطلون.</p></details>
+        <details><summary>لو المقاس مش مناسب أو في مشكلة في المنتج؟</summary><p>كلمنا على واتساب وهنساعدك في الاستبدال. تفاصيل مدة وشروط الاستبدال بتتأكد من خدمة العملاء.</p></details>
+        <details><summary>إمتى كومبريشن وبناطيل وسويت شيرت؟</summary><p>الأقسام دي قريبًا. اشترك في النيوزليتر عشان توصلك أخبار الدروبات الجديدة أول بأول.</p></details>
+      </div>
+    </section>
+
     <section class="newsletter">
       <p class="eyebrow"><span></span> STAY IN THE LOOP</p>
       <h2>خليك أول <em>واحد يعرف.</em></h2>
@@ -149,7 +217,7 @@
     <div class="footer-main">
       <div class="footer-brand"><a class="brand footer-logo" href="#home"><svg class="brand-mark" viewBox="0 0 44 44"><path d="M7 36V8h17c8 0 13 4 13 11 0 5-3 9-8 10l9 7H25l-8-7h-1v7H7Zm9-15h8c2 0 4-1 4-3s-2-3-4-3h-8v6Z" fill="currentColor"/><path d="M5 40h34" stroke="#D7FF35" stroke-width="3" stroke-linecap="round"/></svg><span>ROVEX<span class="reg">®</span></span></a><p>OWN YOUR MOVE.<br>Men's Streetwear & Tracksuits.</p></div>
       <div><h4>تصفح</h4><a href="#collection">المجموعة</a><a href="#about">عن البراند</a><a href="#collection">الأكثر مبيعًا</a></div>
-      <div><h4>مساعدة</h4><a href="#footer">الشحن والتوصيل</a><a href="#footer">الاستبدال والاسترجاع</a><a href="#footer">تواصل معنا</a></div>
+      <div><h4>مساعدة</h4><a href="#faq">الشحن والتوصيل</a><a href="#faq">الاستبدال والاسترجاع</a><a href="#" data-wa target="_blank" rel="noopener">تواصل معنا</a><a href="terms.html">الشروط والأحكام</a><a href="privacy.html">سياسة الخصوصية</a></div>
       <div><h4>تابعنا</h4><a href="#">Instagram ↗</a><a href="#">Facebook ↗</a><a href="#">TikTok ↗</a></div>
     </div>
     <div class="footer-bottom"><span>© 2026 ROVEX. ALL RIGHTS RESERVED.</span><span>MADE TO MOVE DIFFERENT.</span><span>EGYPT 🇪🇬</span></div>
@@ -164,12 +232,29 @@
       <h2 id="modalProductName">ROVEX Tracksuit</h2>
       <strong class="modal-price" id="modalProductPrice"></strong>
       <p class="modal-description">ترنج كامل بتصميم Streetwear عصري. طقم مكوّن من جاكيت وبنطلون، مناسب للحركة والاستخدام اليومي.</p>
-      <div class="option-group"><label>اختار المقاس</label><div class="size-options" id="sizeOptions">
+      <div class="option-group"><label class="size-label">اختار المقاس <button type="button" class="size-guide-link" id="sizeGuideOpen">دليل المقاسات ↗</button></label><div class="size-options" id="sizeOptions">
         <button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button><button type="button" data-size="XXL">XXL</button>
       </div><small class="option-error" id="sizeError">من فضلك اختار المقاس.</small></div>
       <div class="option-group"><label for="colorSelect">اللون</label><select id="colorSelect"><option value="أسود">أسود</option><option value="رمادي">رمادي</option></select></div>
       <div class="modal-actions"><div class="modal-qty"><button id="modalQtyMinus" type="button">−</button><span id="modalQty">1</span><button id="modalQtyPlus" type="button">＋</button></div><button class="btn btn-primary" id="modalAddToCart">أضف للسلة <span>↙</span></button></div>
       <div class="product-note">✓ طقم كامل: جاكيت + بنطلون　 ✓ الدفع عند الاستلام متاح عند الإطلاق</div>
+    </div>
+  </section>
+
+  <section class="checkout-modal" id="sizeGuideModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="sizeGuideTitle">
+    <div class="checkout-box size-guide-box">
+      <div class="drawer-head"><h2 id="sizeGuideTitle">دليل المقاسات</h2><button class="icon-btn" id="sizeGuideClose" aria-label="إغلاق">×</button></div>
+      <table class="size-table">
+        <thead><tr><th>المقاس</th><th>الطول (سم)</th><th>الوزن (كجم)</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td>160 – 168</td><td>55 – 65</td></tr>
+          <tr><td>M</td><td>168 – 174</td><td>65 – 75</td></tr>
+          <tr><td>L</td><td>174 – 180</td><td>75 – 85</td></tr>
+          <tr><td>XL</td><td>178 – 184</td><td>85 – 95</td></tr>
+          <tr><td>XXL</td><td>182 – 190</td><td>95 – 105</td></tr>
+        </tbody>
+      </table>
+      <p class="size-note">الأرقام استرشادية. لو بين مقاسين اختار الأكبر للراحة، أو كلمنا على <a href="#" data-wa target="_blank" rel="noopener">واتساب</a> ونساعدك.</p>
     </div>
   </section>
 
@@ -180,29 +265,36 @@
         <div class="checkout-summary" id="checkoutSummary"></div>
         <div class="form-grid">
           <label>الاسم بالكامل<input name="name" required minlength="3" placeholder="اسمك بالكامل"></label>
-          <label>رقم الموبايل<input name="phone" required inputmode="tel" pattern="[0-9+ ]{10,15}" placeholder="01xxxxxxxxx"></label>
+          <label>رقم الموبايل<input name="phone" required inputmode="tel" pattern="(\+?20|0)?1[0125][0-9]{8}" title="اكتب رقم موبايل مصري صحيح مثل 01012345678" placeholder="01xxxxxxxxx"></label>
           <label>المحافظة<input name="governorate" required placeholder="مثال: الغربية"></label>
           <label>المنطقة / المدينة<input name="city" required placeholder="المدينة أو المركز"></label>
           <label class="full-field">العنوان بالتفصيل<textarea name="address" required rows="3" placeholder="الشارع، رقم العقار، علامة مميزة"></textarea></label>
           <label class="full-field">ملاحظات الطلب (اختياري)<textarea name="notes" rows="2" placeholder="أي تفاصيل إضافية"></textarea></label>
         </div>
         <div class="payment-choice"><strong>طريقة الدفع</strong><label><input type="radio" name="payment" value="الدفع عند الاستلام" checked> الدفع عند الاستلام</label><small>بوابة الدفع الإلكتروني سيتم ربطها في مرحلة لاحقة.</small></div>
-        <button class="btn btn-primary checkout-submit" type="submit">تأكيد الطلب <span>↙</span></button>
-        <small class="checkout-disclaimer">هذا نموذج تجريبي للواجهة؛ لا يتم إرسال الطلب إلى خادم أو حفظه لدى المتجر حاليًا.</small>
+        <button class="btn btn-primary checkout-submit" type="submit">تأكيد وإرسال عبر واتساب <span>↙</span></button>
+        <small class="checkout-disclaimer">بعد التأكيد هيتفتح واتساب برسالة الطلب جاهزة، اضغط "إرسال" لإتمام الطلب.</small>
       </form>
       <div class="order-success" id="orderSuccess" hidden>
-        <div class="success-mark">✓</div><h3>طلبك اتسجل تجريبيًا!</h3><p id="successMessage"></p>
-        <button class="btn btn-primary" id="successClose">العودة للمتجر</button>
+        <div class="success-mark">✓</div><h3>تقريبًا خلصنا!</h3><p id="successMessage"></p>
+        <a class="text-link wa-retry" id="waRetry" target="_blank" rel="noopener">لو واتساب ماتفتحش اضغط هنا ←</a><br><button class="btn btn-primary" id="successClose">العودة للمتجر</button>
       </div>
     </div>
   </section>
+
+  <button class="to-top" id="toTop" aria-label="للأعلى">↑</button>
+  <a class="wa-float" id="waFloat" data-wa target="_blank" rel="noopener" aria-label="تواصل معنا على واتساب"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8a3.5 3.5 0 0 1-1.5-1.5l.8-.8-1-2Z"/></svg></a>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
     <div class="drawer-head"><h2>سلة التسوق <span id="drawerCount">(0)</span></h2><button class="icon-btn" id="cartClose" aria-label="إغلاق">×</button></div>
     <div class="cart-items" id="cartItems"><div class="empty-cart">لسه السلة فاضية.<br><a href="#collection" id="continueShopping">اكتشف المجموعة ←</a></div></div>
-    <div class="drawer-footer"><div class="subtotal"><span>الإجمالي</span><strong id="cartSubtotal">0 ج.م</strong></div><button class="btn btn-primary checkout-btn" id="checkoutButton">إتمام الطلب <span>↙</span></button><small>تكلفة الشحن تُحدد عند إتمام الطلب.</small></div>
+    <div class="drawer-footer">
+      <div class="promo-row"><input id="promoInput" placeholder="كود الخصم" aria-label="كود الخصم" autocomplete="off"><button type="button" id="promoApply">تطبيق</button></div>
+      <small class="promo-message" id="promoMessage"></small>
+      <div class="discount-line" id="discountLine" hidden><span>الخصم</span><strong id="discountValue"></strong></div>
+      <div class="subtotal"><span>الإجمالي</span><strong id="cartSubtotal">0 ج.م</strong></div><button class="btn btn-primary checkout-btn" id="checkoutButton">إتمام الطلب <span>↙</span></button><small>تكلفة الشحن تُحدد عند إتمام الطلب.</small></div>
   </aside>
   <div class="overlay" id="overlay"></div>
 

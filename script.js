@@ -1,3 +1,9 @@
+/* ====== إعدادات المتجر (عدّلها قبل التسليم) ====== */
+const WHATSAPP_NUMBER = "201000000000";      // رقم واتساب بالصيغة الدولية بدون + (مثال: 2010XXXXXXXX)
+const PROMO_CODES = { ROVEX10: 10 };         // كود الخصم: نسبة % (عدّل أو احذف)
+const SOLD_OUT = {};                          // مقاسات نفذت لكل منتج، مثال: { "rvx-01": ["XXL"], "rvx-02": ["S","M"] }
+const NEXT_DROP_DATE = "";                   // موعد الدروب الجاي، مثال: "2026-12-01T20:00:00+02:00" (فاضي = العدّاد مخفي)
+/* ================================================ */
 const products = [
   {id:"rvx-01", name:"ترنج ROVEX Core — أسود", price:1499, image:"https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=700&q=85", colors:["أسود","رمادي"]},
   {id:"rvx-02", name:"ترنج ROVEX Shadow — رمادي", price:1599, image:"https://images.unsplash.com/photo-1551488831-00ddcb6cbd3e?auto=format&fit=crop&w=700&q=85", colors:["رمادي","أسود"]},
@@ -9,6 +15,12 @@ let cart = JSON.parse(localStorage.getItem("rovexCart") || "[]");
 let activeProduct = null;
 let selectedSize = "";
 let modalQuantity = 1;
+let promoCode = PROMO_CODES[localStorage.getItem("rovexPromo")] ? localStorage.getItem("rovexPromo") : "";
+function getTotals(){
+  const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+  const discount=Math.round(subtotal*(PROMO_CODES[promoCode]||0)/100);
+  return {subtotal,discount,total:subtotal-discount};
+}
 
 function showToast(message){
   const toast=$("#toast"); toast.textContent=message; toast.classList.add("show");
@@ -25,9 +37,9 @@ function addToCart(id,size="M",color="أسود",qty=1){
 function updateCart(){
   saveCart();
   const count=cart.reduce((sum,item)=>sum+item.qty,0);
-  const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+  const t=getTotals();
   $("#cartCount").textContent=count; $("#drawerCount").textContent=`(${count})`;
-  $("#cartSubtotal").textContent=money(total);
+  $("#cartSubtotal").textContent=money(t.total);$("#discountLine").hidden=!t.discount;$("#discountValue").textContent="− "+money(t.discount);
   const container=$("#cartItems");
   if(!cart.length){container.innerHTML='<div class="empty-cart">لسه السلة فاضية.<br><a href="#collection" id="continueShopping">اكتشف المجموعة ←</a></div>';return;}
   container.innerHTML=cart.map(item=>`
@@ -51,7 +63,7 @@ function openProductModal(id){
   $("#modalProductImage").alt=activeProduct.name;
   $("#modalQty").textContent=modalQuantity;
   $("#colorSelect").value=activeProduct.colors[0];
-  document.querySelectorAll("#sizeOptions button").forEach(button=>button.classList.remove("selected"));
+  document.querySelectorAll("#sizeOptions button").forEach(b=>{b.classList.remove("selected");const out=(SOLD_OUT[id]||[]).includes(b.dataset.size);b.disabled=out;b.title=out?"نفذ":"";});
   $("#sizeError").classList.remove("show");
   $("#productModal").classList.add("open");$("#productModal").setAttribute("aria-hidden","false");
   $("#overlay").classList.add("show");document.body.style.overflow="hidden";
@@ -63,23 +75,23 @@ function closeProductModal(){
 function openCheckout(){
   if(!cart.length){showToast("السلة فاضية، أضف منتج الأول");return;}
   closeCart();
-  const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
-  $("#checkoutSummary").innerHTML=`عدد القطع: ${cart.reduce((sum,item)=>sum+item.qty,0)}<br>إجمالي المنتجات: <strong>${money(total)}</strong><br>الشحن: يُحدد لاحقًا حسب المحافظة.`;
+  const t=getTotals();
+  $("#checkoutSummary").innerHTML=`عدد القطع: ${cart.reduce((sum,item)=>sum+item.qty,0)}<br>${t.discount?`خصم (${promoCode}): − ${money(t.discount)}<br>`:""}إجمالي المنتجات: <strong>${money(t.total)}</strong><br>الشحن: يُحدد لاحقًا حسب المحافظة.`;
   $("#checkoutForm").hidden=false;$("#orderSuccess").hidden=true;
   $("#checkoutModal").classList.add("open");document.body.style.overflow="hidden";
 }
 function closeCheckout(){$("#checkoutModal").classList.remove("open");document.body.style.overflow="";}
 document.addEventListener("click",event=>{
-  const add=event.target.closest("[data-add]");if(add)addToCart(add.dataset.add);
+  const add=event.target.closest("[data-add]");if(add)openProductModal(add.dataset.add);
   const view=event.target.closest("[data-view]");if(view)openProductModal(view.dataset.view);
-  const size=event.target.closest("[data-size]");
+  const size=event.target.closest("#sizeOptions [data-size]");
   if(size){selectedSize=size.dataset.size;document.querySelectorAll("#sizeOptions button").forEach(b=>b.classList.toggle("selected",b===size));$("#sizeError").classList.remove("show");}
   const qty=event.target.closest("[data-qty]");
   if(qty){const item=cart.find(p=>p.id===qty.dataset.qty&&p.size===qty.dataset.size&&p.color===qty.dataset.color);if(item){item.qty+=Number(qty.dataset.change);if(item.qty<=0)cart=cart.filter(p=>p!==item);updateCart();}}
   const remove=event.target.closest("[data-remove]");
   if(remove){cart=cart.filter(p=>!(p.id===remove.dataset.remove&&p.size===remove.dataset.size&&p.color===remove.dataset.color));updateCart();}
   const favorite=event.target.closest(".favorite-btn");
-  if(favorite){favorite.classList.toggle("is-favorite");favorite.textContent=favorite.classList.contains("is-favorite")?"♥":"♡";}
+  if(favorite)toggleFavorite(favorite);
   if(event.target.closest("#continueShopping"))closeCart();
 });
 $("#cartToggle").addEventListener("click",openCart);
@@ -96,15 +108,148 @@ $("#checkoutForm").addEventListener("submit",event=>{
   event.preventDefault();
   const data=new FormData(event.target);
   const orderNumber="RVX-"+Date.now().toString().slice(-7);
-  $("#successMessage").textContent=`رقم الطلب التجريبي: ${orderNumber}. تم التحقق من بيانات النموذج محليًا فقط.`;
+  const t=getTotals();
+  const lines=cart.map((i,n)=>`${n+1}) ${i.name} | مقاس ${i.size} | ${i.color} | ×${i.qty} = ${money(i.price*i.qty)}`);
+  const msg=["طلب جديد من متجر ROVEX 🛒",`رقم الطلب: ${orderNumber}`,"",...lines,"",
+    t.discount?`خصم (${promoCode}): − ${money(t.discount)}`:null,
+    `الإجمالي: ${money(t.total)} (الشحن يُحدد حسب المحافظة)`,"",
+    `الاسم: ${data.get("name")}`,`الموبايل: ${data.get("phone")}`,
+    `العنوان: ${data.get("governorate")} - ${data.get("city")} - ${data.get("address")}`,
+    data.get("notes")?`ملاحظات: ${data.get("notes")}`:null,
+    `الدفع: ${data.get("payment")}`].filter(x=>x!==null).join("\n");
+  const url=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  $("#waRetry").href=url;
+  window.open(url,"_blank","noopener");
+  $("#successMessage").textContent=`رقم طلبك: ${orderNumber}. اتفتح واتساب برسالة الطلب جاهزة، اضغط "إرسال" عشان نأكد معاك.`;
+  event.target.reset();
   $("#checkoutForm").hidden=true;$("#orderSuccess").hidden=false;
 });
 $("#menuToggle").addEventListener("click",()=>$("#mainNav").classList.toggle("open"));
 $("#mainNav").querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>$("#mainNav").classList.remove("open")));
 $("#searchToggle").addEventListener("click",()=>{$("#searchPanel").classList.add("show");$("#searchInput").focus();});
 $("#searchClose").addEventListener("click",()=>$("#searchPanel").classList.remove("show"));
-$("#searchInput").addEventListener("input",event=>{const query=event.target.value.trim().toLowerCase();document.querySelectorAll(".product-card").forEach(card=>card.style.display=card.dataset.name.toLowerCase().includes(query)?"":"none");});
-$("#sortButton").addEventListener("click",()=>{const grid=$("#productGrid");[...grid.querySelectorAll(".product-card")].reverse().forEach(card=>grid.appendChild(card));showToast("تم تغيير ترتيب العرض");});
+const normalizeAr=t=>t.toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").trim();
+$("#searchInput").addEventListener("input",event=>{
+  const query=normalizeAr(event.target.value);
+  let visible=0;
+  document.querySelectorAll(".product-card").forEach(card=>{
+    const match=normalizeAr(card.dataset.name).includes(query);
+    card.style.display=match?"":"none";if(match)visible++;
+  });
+  $("#noResults").hidden=visible>0;
+});
+const originalOrder=[...document.querySelectorAll("#productGrid .product-card")];
+$("#sortSelect").addEventListener("change",event=>{
+  const grid=$("#productGrid"),mode=event.target.value,list=[...originalOrder];
+  if(mode==="asc")list.sort((x,y)=>x.dataset.price-y.dataset.price);
+  if(mode==="desc")list.sort((x,y)=>y.dataset.price-x.dataset.price);
+  list.forEach(card=>grid.appendChild(card));
+});
 $("#newsletterForm").addEventListener("submit",event=>{event.preventDefault();$("#newsletterMessage").textContent="شكرًا لاشتراكك في ROVEX!";event.target.reset();});
-document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeCart();closeProductModal();closeCheckout();}});
+document.addEventListener("keydown",event=>{if(event.key==="Escape"){$("#sizeGuideModal").classList.remove("open");closeCart();closeProductModal();closeCheckout();}});
+document.querySelectorAll("[data-soon]").forEach(card=>{
+  const notify=()=>showToast("القسم ده قريبًا.. ترقب الدروب الجاي 🔥");
+  card.addEventListener("click",notify);
+  card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();notify();}});
+});
+/* ===== Size guide ===== */
+$("#sizeGuideOpen").addEventListener("click",()=>$("#sizeGuideModal").classList.add("open"));
+$("#sizeGuideClose").addEventListener("click",()=>$("#sizeGuideModal").classList.remove("open"));
+$("#sizeGuideModal").addEventListener("click",e=>{if(e.target.id==="sizeGuideModal")$("#sizeGuideModal").classList.remove("open");});
+
+/* ===== Promo code ===== */
+if(promoCode){$("#promoInput").value=promoCode;$("#promoMessage").textContent=`تم تطبيق خصم ${PROMO_CODES[promoCode]}% ✓`;}
+$("#promoApply").addEventListener("click",()=>{
+  const code=$("#promoInput").value.trim().toUpperCase();
+  if(!code)return;
+  if(PROMO_CODES[code]){promoCode=code;localStorage.setItem("rovexPromo",code);$("#promoMessage").textContent=`تم تطبيق خصم ${PROMO_CODES[code]}% ✓`;}
+  else{promoCode="";localStorage.removeItem("rovexPromo");$("#promoMessage").textContent="الكود غير صحيح";}
+  updateCart();
+});
+
+/* ===== WhatsApp links ===== */
+document.querySelectorAll("[data-wa]").forEach(a=>{a.href=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("أهلاً ROVEX، عندي استفسار")}`;});
+
+/* ===== Next drop countdown ===== */
+(function(){
+  const box=$("#dropCountdown");
+  const target=NEXT_DROP_DATE?new Date(NEXT_DROP_DATE).getTime():NaN;
+  if(isNaN(target)||target<=Date.now())return;
+  box.hidden=false;
+  const pad=n=>String(n).padStart(2,"0");
+  let timer;
+  const tick=()=>{
+    const d=Math.max(0,target-Date.now());
+    $("#cdD").textContent=pad(Math.floor(d/864e5));
+    $("#cdH").textContent=pad(Math.floor(d/36e5)%24);
+    $("#cdM").textContent=pad(Math.floor(d/6e4)%60);
+    $("#cdS").textContent=pad(Math.floor(d/1e3)%60);
+    if(d<=0){clearInterval(timer);box.hidden=true;}
+  };
+  tick();timer=setInterval(tick,1000);
+})();
+/* ===== Favorites (persist) ===== */
+let favorites=[];try{favorites=JSON.parse(localStorage.getItem("rovexFav")||"[]");}catch(e){}
+function paintFav(btn,on){btn.classList.toggle("is-favorite",on);btn.textContent=on?"♥":"♡";}
+function toggleFavorite(btn){
+  const id=btn.closest(".product-card").dataset.id;
+  const on=!favorites.includes(id);
+  favorites=on?[...favorites,id]:favorites.filter(x=>x!==id);
+  try{localStorage.setItem("rovexFav",JSON.stringify(favorites));}catch(e){}
+  paintFav(btn,on);showToast(on?"اتضاف للمفضلة ♥":"اتشال من المفضلة");
+}
+document.querySelectorAll(".product-card").forEach(card=>{const btn=card.querySelector(".favorite-btn");if(btn)paintFav(btn,favorites.includes(card.dataset.id));});
+
+/* ===== Egyptian phone input ===== */
+const phoneInput=document.querySelector('#checkoutForm [name="phone"]');
+phoneInput.addEventListener("input",()=>{
+  phoneInput.value=phoneInput.value.replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/\s+/g,"");
+  phoneInput.setCustomValidity("");
+});
+phoneInput.addEventListener("invalid",()=>phoneInput.setCustomValidity("اكتب رقم موبايل مصري صحيح، مثال: 01012345678"));
+
+/* ===== SEO: structured data from products ===== */
+(function(){
+  const ld={"@context":"https://schema.org","@graph":products.map(p=>({"@type":"Product",name:p.name,image:p.image,brand:{"@type":"Brand",name:"ROVEX"},offers:{"@type":"Offer",priceCurrency:"EGP",price:p.price,availability:"https://schema.org/InStock"}}))};
+  const el=document.createElement("script");el.type="application/ld+json";el.textContent=JSON.stringify(ld);document.head.appendChild(el);
+})();
+
+/* ===== Accessibility: focus management + trap ===== */
+(function(){
+  const panels=["#sizeGuideModal","#checkoutModal","#productModal","#cartDrawer"].map(sel=>$(sel));
+  const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
+  const vis=el=>el.getClientRects().length>0;
+  const lastFocus=new Map();
+  const observer=new MutationObserver(list=>list.forEach(m=>{
+    const el=m.target,open=el.classList.contains("open"),tracked=lastFocus.has(el);
+    el.setAttribute("aria-hidden",open?"false":"true");
+    if(open&&!tracked){
+      lastFocus.set(el,document.activeElement);
+      setTimeout(()=>{const f=[...el.querySelectorAll(FOCUSABLE)].filter(vis);if(f[0])f[0].focus({preventScroll:true});},60);
+    }
+    if(!open&&tracked){const prev=lastFocus.get(el);lastFocus.delete(el);if(prev&&prev.focus)prev.focus({preventScroll:true});}
+  }));
+  panels.forEach(p=>observer.observe(p,{attributes:true,attributeFilter:["class"]}));
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Tab")return;
+    const top=panels.find(p=>p.classList.contains("open"));if(!top)return;
+    const f=[...top.querySelectorAll(FOCUSABLE)].filter(vis);if(!f.length)return;
+    const first=f[0],last=f[f.length-1],inside=top.contains(document.activeElement);
+    if(e.shiftKey&&(!inside||document.activeElement===first)){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&(!inside||document.activeElement===last)){e.preventDefault();first.focus();}
+  });
+})();
+
+/* ===== Scroll reveal + back to top ===== */
+(function(){
+  const toTop=$("#toTop");
+  window.addEventListener("scroll",()=>toTop.classList.toggle("show",window.scrollY>700),{passive:true});
+  toTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+  if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const io=new IntersectionObserver(entries=>entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}}),{threshold:.12});
+  document.querySelectorAll(".section-heading,.category-card,.product-card,.benefit,.manifesto-content,.faq-list").forEach(el=>{
+    el.style.transitionDelay=(Array.prototype.indexOf.call(el.parentNode.children,el)%4)*80+"ms";
+    el.classList.add("reveal");io.observe(el);
+  });
+})();
 updateCart();
