@@ -52,7 +52,7 @@ function updateCart(){
       <strong>${money(item.price*item.qty)}</strong>
     </div>`).join("");
 }
-function openCart(){closeProductModal();$("#cartDrawer").classList.add("open");$("#cartDrawer").setAttribute("aria-hidden","false");$("#overlay").classList.add("show");document.body.style.overflow="hidden";}
+function openCart(){closeProductModal();$("#toast").classList.remove("show");$("#cartDrawer").classList.add("open");$("#cartDrawer").setAttribute("aria-hidden","false");$("#overlay").classList.add("show");document.body.style.overflow="hidden";}
 function closeCart(){ $("#cartDrawer").classList.remove("open");$("#cartDrawer").setAttribute("aria-hidden","true");$("#overlay").classList.remove("show");document.body.style.overflow=""; }
 function openProductModal(id){
   activeProduct=products.find(item=>item.id===id); if(!activeProduct)return;
@@ -83,6 +83,7 @@ function openCheckout(){
 function closeCheckout(){$("#checkoutModal").classList.remove("open");document.body.style.overflow="";}
 document.addEventListener("click",event=>{
   const add=event.target.closest("[data-add]");if(add)openProductModal(add.dataset.add);
+  const cardImg=event.target.closest(".product-image-wrap img");if(cardImg)openProductModal(cardImg.closest(".product-card").dataset.id);
   const view=event.target.closest("[data-view]");if(view)openProductModal(view.dataset.view);
   const size=event.target.closest("#sizeOptions [data-size]");
   if(size){selectedSize=size.dataset.size;document.querySelectorAll("#sizeOptions button").forEach(b=>b.classList.toggle("selected",b===size));$("#sizeError").classList.remove("show");}
@@ -124,20 +125,14 @@ $("#checkoutForm").addEventListener("submit",event=>{
   event.target.reset();
   $("#checkoutForm").hidden=true;$("#orderSuccess").hidden=false;
 });
-$("#menuToggle").addEventListener("click",()=>$("#mainNav").classList.toggle("open"));
-$("#mainNav").querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>$("#mainNav").classList.remove("open")));
-$("#searchToggle").addEventListener("click",()=>{$("#searchPanel").classList.add("show");$("#searchInput").focus();});
-$("#searchClose").addEventListener("click",()=>$("#searchPanel").classList.remove("show"));
-const normalizeAr=t=>t.toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").trim();
-$("#searchInput").addEventListener("input",event=>{
-  const query=normalizeAr(event.target.value);
-  let visible=0;
-  document.querySelectorAll(".product-card").forEach(card=>{
-    const match=normalizeAr(card.dataset.name).includes(query);
-    card.style.display=match?"":"none";if(match)visible++;
-  });
-  $("#noResults").hidden=visible>0;
-});
+function setMenu(open){
+  $("#mainNav").classList.toggle("open",open);
+  $("#menuToggle").setAttribute("aria-expanded",String(open));
+  $("#menuToggle").setAttribute("aria-label",open?"إغلاق القائمة":"فتح القائمة");
+}
+$("#menuToggle").addEventListener("click",()=>setMenu(!$("#mainNav").classList.contains("open")));
+$("#mainNav").querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>setMenu(false)));
+document.addEventListener("click",e=>{if(!e.target.closest(".site-header"))setMenu(false);});
 const originalOrder=[...document.querySelectorAll("#productGrid .product-card")];
 $("#sortSelect").addEventListener("change",event=>{
   const grid=$("#productGrid"),mode=event.target.value,list=[...originalOrder];
@@ -146,7 +141,7 @@ $("#sortSelect").addEventListener("change",event=>{
   list.forEach(card=>grid.appendChild(card));
 });
 $("#newsletterForm").addEventListener("submit",event=>{event.preventDefault();$("#newsletterMessage").textContent="شكرًا لاشتراكك في ROVEX!";event.target.reset();});
-document.addEventListener("keydown",event=>{if(event.key==="Escape"){$("#sizeGuideModal").classList.remove("open");closeCart();closeProductModal();closeCheckout();}});
+document.addEventListener("keydown",event=>{if(event.key==="Escape"){setMenu(false);$("#sizeGuideModal").classList.remove("open");closeCart();closeProductModal();closeCheckout();}});
 document.querySelectorAll("[data-soon]").forEach(card=>{
   const notify=()=>showToast("القسم ده قريبًا.. ترقب الدروب الجاي 🔥");
   card.addEventListener("click",notify);
@@ -251,5 +246,39 @@ phoneInput.addEventListener("invalid",()=>phoneInput.setCustomValidity("اكتب
     el.style.transitionDelay=(Array.prototype.indexOf.call(el.parentNode.children,el)%4)*80+"ms";
     el.classList.add("reveal");io.observe(el);
   });
+})();
+/* ===== Header: scrolled state + active link (scroll-spy) ===== */
+(function(){
+  const header=document.querySelector(".site-header");
+  const links=[...document.querySelectorAll("#mainNav a")];
+  const targets=links.map(a=>({a,el:document.getElementById(a.getAttribute("href").slice(1))})).filter(t=>t.el);
+  let ticking=false;
+  function update(){
+    ticking=false;
+    header.classList.toggle("scrolled",window.scrollY>30);
+    const y=window.scrollY+header.offsetHeight+80;
+    let current=targets[0];
+    targets.forEach(t=>{if(t.el.getBoundingClientRect().top+window.scrollY<=y)current=t;});
+    if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)current=targets[targets.length-1];
+    links.forEach(a=>{const on=current&&a===current.a;a.classList.toggle("active",on);if(on)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current");});
+  }
+  const onScroll=()=>{if(!ticking){ticking=true;requestAnimationFrame(update);}};
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll);
+  update();
+})();
+
+/* ===== Announcement bar rotator (mobile shows one message at a time) ===== */
+(function(){
+  const items=[...document.querySelectorAll("#announcement .ann-item")];
+  if(items.length<2||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  let i=0;
+  setInterval(()=>{items[i].classList.remove("on");i=(i+1)%items.length;items[i].classList.add("on");},3500);
+})();
+/* ===== Ticker marquee: duplicate content for a seamless loop ===== */
+(function(){
+  const track=document.querySelector(".ticker-track");
+  if(!track||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  [...track.children].forEach(n=>{const c=n.cloneNode(true);c.setAttribute("aria-hidden","true");track.appendChild(c);});
 })();
 updateCart();

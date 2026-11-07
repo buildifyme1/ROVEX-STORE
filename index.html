@@ -21,13 +21,14 @@
 </head>
 <body>
   <a class="skip-link" href="#collection">تخطي إلى المنتجات</a>
-  <div class="announcement">
-    <span>شحن لكل المحافظات</span><span class="announcement-dot"></span>
-    <span>اكتشف أول مجموعة من ROVEX</span>
+  <div class="announcement" id="announcement" role="region" aria-label="إعلانات المتجر">
+    <span class="ann-item on">✳ شحن لكل المحافظات</span><span class="announcement-dot"></span>
+    <span class="ann-item">✳ الدفع عند الاستلام متاح</span><span class="announcement-dot"></span>
+    <a class="ann-item" href="#collection">اكتشف أول مجموعة من ROVEX ←</a>
   </div>
 
   <header class="site-header">
-    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="فتح القائمة"><span></span><span></span></button>
+    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mainNav"><span></span><span></span></button>
     <a class="brand" href="#home" aria-label="ROVEX home">
       <svg class="brand-mark" viewBox="0 0 44 44" aria-hidden="true">
         <path d="M7 36V8h17c8 0 13 4 13 11 0 5-3 9-8 10l9 7H25l-8-7h-1v7H7Zm9-15h8c2 0 4-1 4-3s-2-3-4-3h-8v6Z" fill="currentColor"/>
@@ -46,7 +47,6 @@
     </nav>
 
     <div class="header-actions">
-      <button class="icon-btn" id="searchToggle" aria-label="بحث"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
       <button class="cart-button" id="cartToggle" aria-label="السلة">
         <svg viewBox="0 0 24 24"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"/><circle cx="10" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg>
         <span>السلة</span><b id="cartCount">0</b>
@@ -54,10 +54,6 @@
     </div>
   </header>
 
-  <div class="search-panel" id="searchPanel">
-    <input type="search" id="searchInput" placeholder="ابحث عن ترنج..." aria-label="ابحث عن ترنج">
-    <button id="searchClose" class="icon-btn" aria-label="إغلاق">×</button>
-  </div>
 
   <main>
     <section class="hero" id="home">
@@ -71,8 +67,9 @@
           <a class="btn btn-primary" href="#collection">اكتشف المجموعة <span>↙</span></a>
           <a class="text-link" href="#about">اعرف حكاية ROVEX <span>←</span></a>
         </div>
-        <div class="hero-meta"><span>01 / 03</span><span class="meta-line"></span><span>BUILT FOR EVERY MOVE</span></div>
+        <ul class="hero-points"><li>طقم كامل: جاكيت + بنطلون</li><li>شحن لكل المحافظات</li><li>الدفع عند الاستلام</li></ul>
       </div>
+      <a class="hero-scroll" href="#categories" aria-label="انزل لتصفح الأقسام"><span></span>SCROLL</a>
       <div class="hero-side-label">MOVE DIFFERENT · LOOK DIFFERENT</div>
       <div class="hero-stamp"><strong>R</strong><span>NO LIMITS<br>NO RULES</span></div>
     </section>
@@ -155,7 +152,7 @@
           <div class="product-swatches"><i class="swatch grey"></i><i class="swatch black"></i><span>متوفر بمقاسات متعددة</span></div>
         </article>
 
-        <!-- <article class="product-card" data-id="rvx-03" data-name="ترنج ROVEX Volt أسود" data-price="1699">
+        <article class="product-card" data-id="rvx-03" data-name="ترنج ROVEX Volt أسود" data-price="1699">
           <div class="product-image-wrap">
             <span class="product-tag">LIMITED</span>
             <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
@@ -164,10 +161,9 @@
             <button class="view-product" data-view="rvx-03">تفاصيل المنتج <span>↗</span></button>
           </div>
           <div class="product-info"><div><h3>ترنج ROVEX Volt — أسود</h3><p>جاكيت + بنطلون</p></div><strong>1,699 ج.م</strong></div>
-          <div class="product-swatches"><i class="swatch black"></i><i class="swatch lime"></i><span>متوفر بمقاسات متعددة</span></div> -->
+          <div class="product-swatches"><i class="swatch black"></i><i class="swatch lime"></i><span>متوفر بمقاسات متعددة</span></div>
         </article>
       </div>
-      <p class="no-results" id="noResults" hidden>مفيش منتج بالاسم ده.. جرّب كلمة تانية.</p>
       <div class="center-action"><a class="btn btn-outline" href="#collection">عرض كل المنتجات <span>↙</span></a></div>
     </section>
 
