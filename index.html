@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101114" />
+  <meta name="description" content="ROVEX — ترنجات رجالي بتصميم Streetwear. تحرك بطريقتك." />
+  <title>ROVEX | Own Your Move</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="announcement">
+    <span>شحن لكل المحافظات</span><span class="announcement-dot"></span>
+    <span>اكتشف أول مجموعة من ROVEX</span>
+  </div>
+
+  <header class="site-header">
+    <button class="icon-btn menu-toggle" id="menuToggle" aria-label="فتح القائمة"><span></span><span></span></button>
+    <a class="brand" href="#home" aria-label="ROVEX home">
+      <svg class="brand-mark" viewBox="0 0 44 44" aria-hidden="true">
+        <path d="M7 36V8h17c8 0 13 4 13 11 0 5-3 9-8 10l9 7H25l-8-7h-1v7H7Zm9-15h8c2 0 4-1 4-3s-2-3-4-3h-8v6Z" fill="currentColor"/>
+        <path d="M5 40h34" stroke="#D7FF35" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span>ROVEX<span class="reg">®</span></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a class="active" href="#home">الرئيسية</a>
+      <a href="#collection">المجموعة</a>
+      <a href="#about">عن ROVEX</a>
+      <a href="#footer">تواصل معنا</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="بحث"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+      <button class="cart-button" id="cartToggle" aria-label="السلة">
+        <svg viewBox="0 0 24 24"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6"/><circle cx="10" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg>
+        <span>السلة</span><b id="cartCount">0</b>
+      </button>
+    </div>
+  </header>
+
+  <div class="search-panel" id="searchPanel">
+    <input type="search" id="searchInput" placeholder="ابحث عن ترنج..." aria-label="ابحث عن ترنج">
+    <button id="searchClose" class="icon-btn" aria-label="إغلاق">×</button>
+  </div>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-image"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow"><span></span> ROVEX / MEN'S STREETWEAR</p>
+        <h1>OWN YOUR<br><em>MOVE.</em></h1>
+        <p class="hero-copy">مش مجرد ترنج.. دي طريقتك في الحركة.<br>ستايل يومي، راحة من أول خطوة، وحضور مختلف.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#collection">اكتشف المجموعة <span>↙</span></a>
+          <a class="text-link" href="#about">اعرف حكاية ROVEX <span>←</span></a>
+        </div>
+        <div class="hero-meta"><span>01 / 03</span><span class="meta-line"></span><span>BUILT FOR EVERY MOVE</span></div>
+      </div>
+      <div class="hero-side-label">MOVE DIFFERENT · LOOK DIFFERENT</div>
+      <div class="hero-stamp"><strong>R</strong><span>NO LIMITS<br>NO RULES</span></div>
+    </section>
+
+    <section class="ticker" aria-label="رسالة العلامة التجارية">
+      <div class="ticker-track"><span>MOVE DIFFERENT</span><b>✳</b><span>STAY COMFORTABLE</span><b>✳</b><span>OWN YOUR MOVE</span><b>✳</b><span>MOVE DIFFERENT</span><b>✳</b><span>STAY COMFORTABLE</span><b>✳</b></div>
+    </section>
+
+    <section class="section collection-section" id="collection">
+      <div class="section-heading">
+        <div><p class="eyebrow dark-eyebrow"><span></span> THE FIRST DROP</p><h2>اختار <em>ستايلك.</em></h2></div>
+        <p>ترنجات كاملة مصممة عشان تواكب يومك<br>من التمرين للخروجة.</p>
+      </div>
+      <div class="filter-row">
+        <div class="collection-label">LATEST COLLECTION <span>— 03 ITEMS</span></div>
+        <button class="sort-button" id="sortButton">ترتيب المنتجات <span>⌄</span></button>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <article class="product-card" data-id="rvx-01" data-name="ترنج ROVEX Core أسود" data-price="1499">
+          <div class="product-image-wrap">
+            <span class="product-tag">NEW DROP</span>
+            <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
+            <img src="P1.png" alt="إطلالة ملابس Streetwear سوداء" loading="lazy">
+            <button class="quick-add" data-add="rvx-01">أضف للسلة <span>＋</span></button>
+            <button class="view-product" data-view="rvx-01">تفاصيل المنتج <span>↗</span></button>
+          </div>
+          <div class="product-info"><div><h3>ترنج ROVEX Core — أسود</h3><p>جاكيت + بنطلون</p></div><strong>1,499 ج.م</strong></div>
+          <div class="product-swatches"><i class="swatch black"></i><i class="swatch grey"></i><span>متوفر بمقاسات متعددة</span></div>
+        </article>
+
+        <article class="product-card" data-id="rvx-02" data-name="ترنج ROVEX Shadow رمادي" data-price="1599">
+          <div class="product-image-wrap">
+            <span class="product-tag muted-tag">BEST SELLER</span>
+            <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
+            <img src="https://images.unsplash.com/photo-1551488831-00ddcb6cbd3e?auto=format&fit=crop&w=900&q=85" alt="ملابس رياضية عصرية" loading="lazy">
+            <button class="quick-add" data-add="rvx-02">أضف للسلة <span>＋</span></button>
+            <button class="view-product" data-view="rvx-02">تفاصيل المنتج <span>↗</span></button>
+          </div>
+          <div class="product-info"><div><h3>ترنج ROVEX Shadow — رمادي</h3><p>جاكيت + بنطلون</p></div><strong>1,599 ج.م</strong></div>
+          <div class="product-swatches"><i class="swatch grey"></i><i class="swatch black"></i><span>متوفر بمقاسات متعددة</span></div>
+        </article>
+
+        <article class="product-card" data-id="rvx-03" data-name="ترنج ROVEX Volt أسود" data-price="1699">
+          <div class="product-image-wrap">
+            <span class="product-tag">LIMITED</span>
+            <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85" alt="تصوير أزياء Streetwear" loading="lazy">
+            <button class="quick-add" data-add="rvx-03">أضف للسلة <span>＋</span></button>
+            <button class="view-product" data-view="rvx-03">تفاصيل المنتج <span>↗</span></button>
+          </div>
+          <div class="product-info"><div><h3>ترنج ROVEX Volt — أسود</h3><p>جاكيت + بنطلون</p></div><strong>1,699 ج.م</strong></div>
+          <div class="product-swatches"><i class="swatch black"></i><i class="swatch lime"></i><span>متوفر بمقاسات متعددة</span></div>
+        </article>
+      </div>
+      <div class="center-action"><a class="btn btn-outline" href="#collection">عرض كل المنتجات <span>↙</span></a></div>
+    </section>
+
+    <section class="manifesto" id="about">
+      <div class="manifesto-image"></div>
+      <div class="manifesto-content">
+        <p class="eyebrow"><span></span> THIS IS ROVEX</p>
+        <h2>مش لازم<br>تشبه <em>حد.</em></h2>
+        <p>ROVEX معمول للناس اللي بتختار طريقها بنفسها. بنجمع بين الراحة والتصميم الرياضي بلمسة Streetwear تليق بكل يوم.</p>
+        <a class="text-link light-link" href="#collection">اكتشف ROVEX <span>←</span></a>
+        <div class="manifesto-number">R / 001</div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div class="benefit"><span class="benefit-icon">✳</span><div><h3>راحة طول اليوم</h3><p>تصميم عملي للحركة والاستخدام اليومي.</p></div></div>
+      <div class="benefit"><span class="benefit-icon">↗</span><div><h3>ستايل مختلف</h3><p>تفاصيل بسيطة بحضور واضح.</p></div></div>
+      <div class="benefit"><span class="benefit-icon">⌁</span><div><h3>شحن للمحافظات</h3><p>اطلب بسهولة واستلم عند باب بيتك.</p></div></div>
+    </section>
+
+    <section class="newsletter">
+      <p class="eyebrow"><span></span> STAY IN THE LOOP</p>
+      <h2>خليك أول <em>واحد يعرف.</em></h2>
+      <p>اشترك عشان توصلك أخبار الدروبات الجديدة والعروض.</p>
+      <form id="newsletterForm"><input type="email" required placeholder="اكتب إيميلك هنا" aria-label="البريد الإلكتروني"><button type="submit">اشترك <span>↙</span></button></form>
+      <small id="newsletterMessage"></small>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="footer-main">
+      <div class="footer-brand"><a class="brand footer-logo" href="#home"><svg class="brand-mark" viewBox="0 0 44 44"><path d="M7 36V8h17c8 0 13 4 13 11 0 5-3 9-8 10l9 7H25l-8-7h-1v7H7Zm9-15h8c2 0 4-1 4-3s-2-3-4-3h-8v6Z" fill="currentColor"/><path d="M5 40h34" stroke="#D7FF35" stroke-width="3" stroke-linecap="round"/></svg><span>ROVEX<span class="reg">®</span></span></a><p>OWN YOUR MOVE.<br>Men's Streetwear & Tracksuits.</p></div>
+      <div><h4>تصفح</h4><a href="#collection">المجموعة</a><a href="#about">عن البراند</a><a href="#collection">الأكثر مبيعًا</a></div>
+      <div><h4>مساعدة</h4><a href="#footer">الشحن والتوصيل</a><a href="#footer">الاستبدال والاسترجاع</a><a href="#footer">تواصل معنا</a></div>
+      <div><h4>تابعنا</h4><a href="#">Instagram ↗</a><a href="#">Facebook ↗</a><a href="#">TikTok ↗</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 ROVEX. ALL RIGHTS RESERVED.</span><span>MADE TO MOVE DIFFERENT.</span><span>EGYPT 🇪🇬</span></div>
+  </footer>
+
+
+  <section class="product-modal" id="productModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalProductName">
+    <button class="modal-close" id="productModalClose" aria-label="إغلاق">×</button>
+    <div class="modal-product-image"><img id="modalProductImage" src="" alt=""></div>
+    <div class="modal-product-info">
+      <p class="eyebrow dark-eyebrow"><span></span> ROVEX / PRODUCT DETAILS</p>
+      <h2 id="modalProductName">ROVEX Tracksuit</h2>
+      <strong class="modal-price" id="modalProductPrice"></strong>
+      <p class="modal-description">ترنج كامل بتصميم Streetwear عصري. طقم مكوّن من جاكيت وبنطلون، مناسب للحركة والاستخدام اليومي.</p>
+      <div class="option-group"><label>اختار المقاس</label><div class="size-options" id="sizeOptions">
+        <button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button><button type="button" data-size="XXL">XXL</button>
+      </div><small class="option-error" id="sizeError">من فضلك اختار المقاس.</small></div>
+      <div class="option-group"><label for="colorSelect">اللون</label><select id="colorSelect"><option value="أسود">أسود</option><option value="رمادي">رمادي</option></select></div>
+      <div class="modal-actions"><div class="modal-qty"><button id="modalQtyMinus" type="button">−</button><span id="modalQty">1</span><button id="modalQtyPlus" type="button">＋</button></div><button class="btn btn-primary" id="modalAddToCart">أضف للسلة <span>↙</span></button></div>
+      <div class="product-note">✓ طقم كامل: جاكيت + بنطلون　 ✓ الدفع عند الاستلام متاح عند الإطلاق</div>
+    </div>
+  </section>
+
+  <section class="checkout-modal" id="checkoutModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <div class="checkout-box">
+      <div class="drawer-head"><h2 id="checkoutTitle">إتمام الطلب</h2><button class="icon-btn" id="checkoutClose" aria-label="إغلاق">×</button></div>
+      <form id="checkoutForm" class="checkout-form">
+        <div class="checkout-summary" id="checkoutSummary"></div>
+        <div class="form-grid">
+          <label>الاسم بالكامل<input name="name" required minlength="3" placeholder="اسمك بالكامل"></label>
+          <label>رقم الموبايل<input name="phone" required inputmode="tel" pattern="[0-9+ ]{10,15}" placeholder="01xxxxxxxxx"></label>
+          <label>المحافظة<input name="governorate" required placeholder="مثال: الغربية"></label>
+          <label>المنطقة / المدينة<input name="city" required placeholder="المدينة أو المركز"></label>
+          <label class="full-field">العنوان بالتفصيل<textarea name="address" required rows="3" placeholder="الشارع، رقم العقار، علامة مميزة"></textarea></label>
+          <label class="full-field">ملاحظات الطلب (اختياري)<textarea name="notes" rows="2" placeholder="أي تفاصيل إضافية"></textarea></label>
+        </div>
+        <div class="payment-choice"><strong>طريقة الدفع</strong><label><input type="radio" name="payment" value="الدفع عند الاستلام" checked> الدفع عند الاستلام</label><small>بوابة الدفع الإلكتروني سيتم ربطها في مرحلة لاحقة.</small></div>
+        <button class="btn btn-primary checkout-submit" type="submit">تأكيد الطلب <span>↙</span></button>
+        <small class="checkout-disclaimer">هذا نموذج تجريبي للواجهة؛ لا يتم إرسال الطلب إلى خادم أو حفظه لدى المتجر حاليًا.</small>
+      </form>
+      <div class="order-success" id="orderSuccess" hidden>
+        <div class="success-mark">✓</div><h3>طلبك اتسجل تجريبيًا!</h3><p id="successMessage"></p>
+        <button class="btn btn-primary" id="successClose">العودة للمتجر</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer-head"><h2>سلة التسوق <span id="drawerCount">(0)</span></h2><button class="icon-btn" id="cartClose" aria-label="إغلاق">×</button></div>
+    <div class="cart-items" id="cartItems"><div class="empty-cart">لسه السلة فاضية.<br><a href="#collection" id="continueShopping">اكتشف المجموعة ←</a></div></div>
+    <div class="drawer-footer"><div class="subtotal"><span>الإجمالي</span><strong id="cartSubtotal">0 ج.م</strong></div><button class="btn btn-primary checkout-btn" id="checkoutButton">إتمام الطلب <span>↙</span></button><small>تكلفة الشحن تُحدد عند إتمام الطلب.</small></div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
